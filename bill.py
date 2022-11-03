@@ -42,8 +42,6 @@ while True:
         items.append("sandwitch "+str(quantity))
         print("quantity=",quantity)
         print("total=",total)
-    elif(choice==5):
-        print("Cake added")
     elif(choice==6):
         name=input("enter your name")
         #phone=input("enter your phone")
