@@ -25,13 +25,23 @@ while True:
         print("Cofee added")
         quantity=int(input("enter the quantity"))
         total+=152*quantity
-        items.append("tea "+str(quantity))
+        items.append("cofee "+str(quantity))
         print("quantity=",quantity)
         print("total=",total)
     elif(choice==3):
         print("Chips added")
+        quantity=int(input("enter the quantity"))
+        total+=20*quantity
+        items.append("chips "+str(quantity))
+        print("quantity=",quantity)
+        print("total=",total)
     elif(choice==4):
         print("Sandwitch added")
+        quantity=int(input("enter the quantity"))
+        total+=30*quantity
+        items.append("sandwitch "+str(quantity))
+        print("quantity=",quantity)
+        print("total=",total)
     elif(choice==5):
         print("Cake added")
     elif(choice==6):
