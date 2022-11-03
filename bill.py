@@ -1,4 +1,5 @@
 import mysql.connector
+from datetime import datetime
 mydb= mysql.connector.connect(host= 'localhost',user='root',password='',database=' hoteldb')
 mycursor= mydb.cursor()
 total=0
@@ -44,11 +45,20 @@ while True:
         print("total=",total)
     elif(choice==6):
         name=input("enter your name")
-        #phone=input("enter your phone")
-        #date=imput("enter the date")
-       #sql="INSERT INTO `bill`(`name`, `phone`, `date`, `amount`) VALUES (%s,%s,%s,%s)"
-       #data=(name,phone,date)
-        #print("bill")
+        phone=input("enter your phone")
+        print("****bill****")
+        print("Name:-",name)
+        print("phone:-",phone)
+        date= datetime.today().strftime('%Y-%m-%d')
+        print("date:-",date)
+        print("****items*****")
+        for i in items:
+            print(i)
+        print("total bill =",total)
+        sql="INSERT INTO `bill`(`name`, `phone`, `date`, `amount`) VALUES (%s,%s,now(),%s)"
+        data=(name,phone,total)
+        mycursor.execute(sql,data)
+        mydb.commit()
     elif(choice==7):
         break    
 
