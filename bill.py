@@ -1,6 +1,11 @@
 import mysql.connector
+import sys
 from datetime import datetime
-mydb= mysql.connector.connect(host= 'localhost',user='root',password='',database=' hoteldb')
+try:
+    mydb= mysql.connector.connect(host= 'localhost',user='root',password='',database=' hoteldb')
+except mysql.connector.Error as e:
+    #print("connection error")   
+    sys.exit("dbconnection failure")
 mycursor= mydb.cursor()
 total=0
 items=[]
@@ -57,34 +62,48 @@ while True:
         for i in items:
             print(i)
         print("total bill =",total)
-        sql="INSERT INTO `bill`(`name`, `phone`, `date`, `amount`) VALUES (%s,%s,now(),%s)"
-        data=(name,phone,total)
-        mycursor.execute(sql,data)
-        mydb.commit()
+        try:
+            sql="INSERT INTO `bill`(`name`, `phone`, `date`, `amount`) VALUES (%s,%s,now(),%s)"
+            data=(name,phone,total)
+            mycursor.execute(sql,data)
+            mydb.commit()
+        except mysql.connector.Error as e:
+            sys.exit("insert error")
+
         items=[]
         total=0
     elif(choice==7):
         print("view all transaction") 
         date=input("enter a date(yy-mm-dd):-")
-        sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
-        mycursor.execute(sql)
-        result = mycursor.fetchall()
-        print(result)   
+        try:
+            sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
+            mycursor.execute(sql)
+            result = mycursor.fetchall()
+            print(result)  
+        except mysql.connector.Error as e:
+            sys.exit("view transaction error")    
+
     elif(choice==8):
         print("display transaction sumery of particulr date") 
         date=input("enter a date(yy-mm-dd):-")
-        sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
-        mycursor.execute(sql)
-        result = mycursor.fetchall()
-        print(result)
+        try:
+            sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
+            mycursor.execute(sql)
+            result = mycursor.fetchall()
+            print(result)
+        except mysql.connector.Error  as e:
+            sys.exit("transaction summery error")  
     elif(choice==9):
         print("Transaction sumery of period")
         date1=input("enter a statring date(yy-mm-dd):-")
         date2=input("enter a  end date(yy-mm-dd):-")
-        sql="SELECT SUM(`amount`) FROM `bill` WHERE `date` BETWEEN '"+date1+"' AND '"+date1+"' "
-        mycursor.execute(sql)
-        result = mycursor.fetchall()
-        print(result)
+        try:
+            sql="SELECT SUM(`amount`) FROM `bill` WHERE `date` BETWEEN '"+date1+"' AND '"+date1+"' "
+            mycursor.execute(sql)
+            result = mycursor.fetchall()
+            print(result)
+        except mysql.connector.Error as e:
+            sys.exit("ransaction summery between 2 dates")    
     elif(choice==10):
         break    
 
