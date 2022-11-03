@@ -77,7 +77,14 @@ while True:
         mycursor.execute(sql)
         result = mycursor.fetchall()
         print(result)
-
+    elif(choice==9):
+        print("Transaction sumery of period")
+        date1=input("enter a statring date(yy-mm-dd):-")
+        date2=input("enter a  end date(yy-mm-dd):-")
+        sql="SELECT SUM(`amount`) FROM `bill` WHERE `date` BETWEEN '"+date1+"' AND '"+date1+"' "
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        print(result)
     elif(choice==10):
         break    
 
