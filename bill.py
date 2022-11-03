@@ -1,4 +1,5 @@
 import mysql.connector
+from tabulate import tabulate
 import sys
 from datetime import datetime
 try:
@@ -76,14 +77,10 @@ while True:
         print("view all transaction") 
         date=input("enter a date(yy-mm-dd):-")
         try:
-            sql="SELECT `name`, `phone`, `date`, `amount` FROM `bill` WHERE `date`='"+date+"'"
+            sql="SELECT `name`, `phone`, `amount` FROM `bill` WHERE `date`='"+date+"'"
             mycursor.execute(sql)
             result = mycursor.fetchall()
-            for i in result:
-                print("name=",i[0])
-                print("phone number=",i[1])
-                print("date=",i[2]) 
-                print("amount",i[3],"\n")  
+            print(tabulate(result,headers=["name","phone","amount"],tablefmt="psql")) 
         except mysql.connector.Error as e:
             sys.exit("view transaction error")    
 
@@ -91,10 +88,10 @@ while True:
         print("display transaction sumery of particulr date") 
         date=input("enter a date(yy-mm-dd):-")
         try:
-            sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
+            sql="SELECT `name`, `phone`, `amount` FROM `bill` WHERE `date`='"+date+"'"
             mycursor.execute(sql)
             result = mycursor.fetchall()
-            print(result)
+            print(tabulate(result,headers=["name","phone","amount"],tablefmt="psql" ))
         except mysql.connector.Error  as e:
             sys.exit("transaction summery error")  
     elif(choice==9):
@@ -105,7 +102,7 @@ while True:
             sql="SELECT SUM(`amount`) FROM `bill` WHERE `date` BETWEEN '"+date1+"' AND '"+date1+"' "
             mycursor.execute(sql)
             result = mycursor.fetchall()
-            print(result)
+            print(tabulate(result,headers=["amount"],tablefmt="psql" ))
         except mysql.connector.Error as e:
             sys.exit("ransaction summery between 2 dates")    
     elif(choice==10):
