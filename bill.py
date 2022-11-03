@@ -11,7 +11,10 @@ while True:
     print("3.Chips:----------20rs")
     print("4.Sandwitch:------30rs")
     print("6.Generate  Bill----")
-    print("7.Exit:-")
+    print("7.View all transaction----")
+    print("6.Day wise transaction summery----")
+    print("8.Transaction summery for a period----")
+    print("9.Exit:-")
 
     choice=int(input("Please enter your choice:-"))
     if(choice==1):
@@ -61,6 +64,13 @@ while True:
         items=[]
         total=0
     elif(choice==7):
+        print("view all transaction") 
+        date=input("enter a date(yy-mm-dd):-")
+        sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        print(result)   
+    elif(choice==9):
         break    
 
   
