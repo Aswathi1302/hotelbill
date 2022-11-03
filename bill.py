@@ -76,10 +76,14 @@ while True:
         print("view all transaction") 
         date=input("enter a date(yy-mm-dd):-")
         try:
-            sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
+            sql="SELECT `name`, `phone`, `date`, `amount` FROM `bill` WHERE `date`='"+date+"'"
             mycursor.execute(sql)
             result = mycursor.fetchall()
-            print(result)  
+            for i in result:
+                print("name=",i[0])
+                print("phone number=",i[1])
+                print("date=",i[2]) 
+                print("amount",i[3],"\n")  
         except mysql.connector.Error as e:
             sys.exit("view transaction error")    
 
